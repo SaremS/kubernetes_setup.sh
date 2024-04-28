@@ -1,9 +1,7 @@
-CILIUM_CLI_VERSION=$(curl -s https://raw.githubusercontent.com/cilium/cilium-cli/main/stable.txt)
-CLI_ARCH=amd64
-if [ "$(uname -m)" = "aarch64" ]; then CLI_ARCH=arm64; fi
-curl -L --fail --remote-name-all https://github.com/cilium/cilium-cli/releases/download/${CILIUM_CLI_VERSION}/cilium-linux-${CLI_ARCH}.tar.gz{,.sha256sum}
-sha256sum --check cilium-linux-${CLI_ARCH}.tar.gz.sha256sum
-sudo tar xzvfC cilium-linux-${CLI_ARCH}.tar.gz /usr/local/bin
-rm cilium-linux-${CLI_ARCH}.tar.gz{,.sha256sum}
+helm repo add cilium https://helm.cilium.io/
+helm repo update
 
-cilium install --version 1.15.4
+helm install cilium cilium/cilium --version 1.15.4 \
+  --namespace kube-system \
+  --set ipam.operator.clusterPoolIPv4PodCIDR=10.42.0.0/16 \
+  --set ipv4NativeRoutingCIDR=10.42.0.0/16
