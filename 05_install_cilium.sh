@@ -3,5 +3,5 @@ helm repo update
 
 helm install cilium cilium/cilium --version 1.15.4 \
   --namespace kube-system \
-  --set ipam.operator.clusterPoolIPv4PodCIDR=10.120.0.0/16 \
-  --set ipv4NativeRoutingCIDR=10.120.0.0/16
+  --set ipam.operator.clusterPoolIPv4PodCIDR=10.244.0.0/16 \
+  --set ipv4NativeRoutingCIDR=10.244.0.0/16
